@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 18:00:49 by acaplat           #+#    #+#             */
-/*   Updated: 2023/06/29 16:08:52 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/06/30 17:59:10 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void separate_command(t_elem *lst,t_mini *shell)
 	processlist(lst,'\"',' ');
 	processlist_chevron(lst,'<',' ');
 	processlist_chevron(lst,'>',' ');
-	printlist(lst);
 }

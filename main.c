@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:34:50 by acaplat           #+#    #+#             */
-/*   Updated: 2023/06/29 18:22:19 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/06/30 17:58:41 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	minishell_loop(t_mini *shell)
 					shell->newline = convert_to_str(lst);
 					simple_command = get_my_element(shell);
 					printlist_bis(simple_command);
+					printf("\n\n");
+					tokenize(simple_command,shell);
+					args(simple_command,shell);
+					display_sublist(simple_command);
 					// shell->args = set_command(simple_command,shell);
 					// printf("\n");
 					// printlist_bis(shell->args);

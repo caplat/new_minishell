@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:08:58 by acaplat           #+#    #+#             */
-/*   Updated: 2023/06/29 20:23:13 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/06/30 17:34:00 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,11 @@ t_lex				*set_command(t_lex *head, t_mini *shell);
 int					check_flag_bis(t_lex *current, int flag);
 
 // Token
+
+void				tokenize(t_lex *simple_command,t_mini *shell);
+t_lex *create_node(char *str);
+void add_node_to_lst(t_lex **list,t_lex *newnode);
+void display_sublist(t_lex *simple_command);
+void args(t_lex *simple_command,t_mini *shell);
 
 #endif
