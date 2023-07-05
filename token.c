@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 15:52:18 by acaplat           #+#    #+#             */
-/*   Updated: 2023/06/30 17:51:43 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/04 14:38:22 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ void args(t_lex *simple_command,t_mini *shell)
 	current = simple_command;
 	current_bis = simple_command;
 	args = NULL;
-	arg = ft_calloc(1,1);
 	while(current)
 	{
 		shell->flag = check_flag_bis(current,shell->flag);
 		if(shell->flag == 0 && ft_strncmp(current->str,"|",2) == 0)
 		{
+			arg = ft_calloc(1,1);
 			while(current_bis != current)
 			{
 				if(current_bis->str != NULL)
@@ -111,10 +111,12 @@ void args(t_lex *simple_command,t_mini *shell)
 				printf("arg-->%s\n",arg);
 				current_bis = current_bis->next;
 			}
+			printf("allo\n");
 			args = NULL;
 			add_node_to_lst(&args,create_node(ft_strdup(arg)));
 			current->sublist = args;
-			current = current->next;
+			if(current->next)
+				current = current->next;
 		}
 		current = current->next;
 	}

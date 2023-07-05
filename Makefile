@@ -2,6 +2,8 @@
 NAME = minishell
 
 SRCS = main.c signal.c utils.c parsing.c dollar.c linked_list.c lexer.c token.c \
+exec.c pipe.c builtins/echo.c builtins/exec_builtins.c builtins/cd.c builtins/pwd.c \
+builtins/env.c
 
 CC = gcc -Wall -Wextra -Werror -g3
 
