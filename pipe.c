@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 14:01:07 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/04 15:33:07 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/06 16:36:13 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ int get_nb_node(t_lex *head)
 	current = head;
 	while(current)
 	{
-		if(ft_strncmp(current->str,"|",2) == 0 && current->sublist != NULL)
-        {
-            i++;
-            current = current->next;
-        }
-        current = current->next;
+		current = current->next;
+		i++;
 	}
 	return(i);
 }
-void do_the_pipe(t_mini *shell,t_lex *simple_command)
+void do_the_pipe(t_mini *shell)
 {
     int nb_node;
     int pipe_fd[2];
@@ -38,8 +34,7 @@ void do_the_pipe(t_mini *shell,t_lex *simple_command)
 	pid_t child_pid;
 	int i;
 
-	nb_node = get_nb_node(simple_command);
-    printf("nb_node --> %d\n",nb_node);
+	nb_node = get_nb_node(shell->args);
 	i = -1;
     while(++i < nb_node) 
 	{
@@ -70,7 +65,7 @@ void do_the_pipe(t_mini *shell,t_lex *simple_command)
                 dup2(pipe_fd[1], STDOUT_FILENO);
             }
             // Execute the command
-            exec_all(shell, i, simple_command);
+            exec_all(shell, i);
             exit(0);  // Exit the child process
         } 
 		else 

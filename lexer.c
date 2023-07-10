@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:35:15 by acaplat           #+#    #+#             */
-/*   Updated: 2023/06/30 14:43:11 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/06 15:07:46 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_lex	*get_my_element(t_mini *shell)
 		add_element_bis(&newlist, shell->simple_command[i]);
 		i++;
 	}
+	printlist_bis(newlist);
 	return (newlist);
 }
 t_lex	*set_command(t_lex *head,t_mini *shell)
@@ -100,6 +101,7 @@ t_lex	*set_command(t_lex *head,t_mini *shell)
 	}
 	add_element_bis(&newlist, ft_strdup(test));
 	free(test);
+	printlist_bis(newlist);
 	return (newlist);
 }
 int check_flag_bis(t_lex *current,int flag)

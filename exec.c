@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 13:45:00 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/03 16:17:06 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/06 17:00:14 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,17 @@ void	get_my_path(t_mini *shell)
 			i++;
 	}
 }
-int verify(t_mini *shell,int j,t_lex *simple_command)
+int verify(t_mini *shell,int j)
 {
 	int i;
 	t_lex *current;
 	char *path_part;
 
 	i = 0;
-	current = find_node(j,simple_command);
-	maj_to_min(current->sublist->str);
-	// check_built_in(current);
-	printf("sublist --> %s\n",current->sublist->str);
-	shell->arg_bis = ft_split(current->sublist->str,' ');
+	current = find_node(j,shell);
+	maj_to_min(current->str);
+	check_built_in(current,shell);
+	shell->arg_bis = ft_split(current->str,' ');
 	// printf("%d\n",j);
 	while(shell->allpath[i++])
 	{
@@ -63,30 +62,24 @@ int execute(t_mini *shell)
 	return(0);
 }
 
-t_lex *find_node(int i,t_lex *simple_command)
+t_lex *find_node(int i,t_mini *shell)
 {
 	int j;
 	t_lex *current;
 
-	current = simple_command;
-	j = -1;
-	while(current)
+	current = shell->args;
+	j = 0;
+	while(j < i)
 	{
-		if(ft_strncmp(current->str,"|",2) == 0 && current->sublist != NULL)
-		{
-			j++;
-			if(j == i)
-				return(current);
-			current = current->next;
-		}
 		current = current->next;
+		j++;
 	}
 	return(current);
 }
 
-void exec_all(t_mini *shell,int i,t_lex *simple_command)
+void exec_all(t_mini *shell,int i)
 {
 	get_my_path(shell);
-	verify(shell,i,simple_command);
+	verify(shell,i);
 	execute(shell);
 }

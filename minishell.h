@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:08:58 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/05 16:40:50 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:23:35 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_lex
 typedef struct s_mini
 {
 	char			**env;
-	char **env_cpy;
+	char			**env_cpy;
 	char			*line;
 	char			*newline;
 	int				flag;
@@ -46,6 +46,8 @@ typedef struct s_mini
 	char			**allpath;
 	char			*exe;
 	char			**arg_bis;
+	t_lex			*args;
+	t_lex			*redir;
 }					t_mini;
 
 typedef struct s_compteur
@@ -72,6 +74,7 @@ void				initialize(char **env, t_mini *shell);
 void				maj_to_min(char *str);
 char				*add_char(char *str, char c);
 int					find_length(char **str);
+void				print_tab(char **tab);
 
 //Signal
 
@@ -105,6 +108,7 @@ void				processlist_chevron(t_elem *head, char targetchar,
 						char newdata);
 char				*convert_to_str(t_elem *head);
 void				free_list(t_elem *head);
+void				delete_node(t_lex **head, t_lex *node_to_del);
 
 // Lexer
 
@@ -125,14 +129,14 @@ void				args(t_lex *simple_command, t_mini *shell);
 
 //Built_in
 
-void				check_built_in(t_lex *current);
+void				check_built_in(t_lex *current, t_mini *shell);
 
 //Echo
 
 void				echo(char **compare);
 int					check_n(char **compare);
-int	cote(char c,int flag);
-void echo_bis(char **compare,int i,int k,int flag_bis);
+int					cote(char c, int flag);
+void				echo_bis(char **compare, int i, int k, int flag_bis);
 
 //Cd
 
@@ -145,20 +149,39 @@ void				too_much_line(char **dir, char **path, char **cwd);
 
 //Env
 
-void print_env(t_mini *shell);
-void env_cpy(t_mini *shell);
+void				print_env(t_mini *shell);
+void				env_cpy(t_mini *shell);
+
+//Export
+
+void				sort_tab(char **tab);
+void				swap_strings(char **str1, char **str2);
+int					compare_length(char *str1, char *str2);
+void				do_export(t_mini *shell);
+void				declare_x(char **env_cpy);
+void				insert_char(char *str, char character, int position);
+void				add_quotes(char **env_cpy);
+int					find_character(char *str, char c);
+
+//Add_var_export
+
+
 
 //Pipe
 
 int					get_nb_node(t_lex *head);
-void				do_the_pipe(t_mini *shell, t_lex *simple_command);
+void				do_the_pipe(t_mini *shell);
 
 //Exec
 
-void				exec_all(t_mini *shell, int i, t_lex *simple_command);
-t_lex				*find_node(int i, t_lex *simple_command);
+void				exec_all(t_mini *shell, int i);
+t_lex				*find_node(int i, t_mini *shell);
 void				get_my_path(t_mini *shell);
-int					verify(t_mini *shell, int j, t_lex *simple_command);
+int					verify(t_mini *shell, int j);
 int					execute(t_mini *shell);
+
+//Parse_redir
+
+void				parse_redir(t_lex *simple_command, t_mini *shell);
 
 #endif

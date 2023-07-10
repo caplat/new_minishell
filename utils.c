@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:48:36 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/05 16:38:59 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/10 14:17:42 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void initialize(char **env,t_mini *shell)
 	shell->allpath = NULL;
 	shell->exe = NULL;
 	shell->arg_bis = NULL;
+	shell->redir = NULL;
 }
 void maj_to_min(char *str)
 {
@@ -67,4 +68,12 @@ int find_length(char **str)
 	while(str[i])
 		i++;
 	return(i);
+}
+void print_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while(tab[i])
+		printf("%s\n",tab[i++]);
 }

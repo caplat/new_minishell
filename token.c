@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 15:52:18 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/04 14:38:22 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/05 19:29:47 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,40 +85,75 @@ void display_sublist(t_lex *simple_command)
 		current = current->next;
 	}
 }
+// void args(t_lex *simple_command,t_mini *shell)
+// {
+// 	t_lex *current;
+// 	t_lex *current_bis;
+// 	t_lex *args;
+// 	char *arg;
+
+// 	current = simple_command;
+// 	current_bis = simple_command;
+// 	args = NULL;
+// 	while(current)
+// 	{
+// 		shell->flag = check_flag_bis(current,shell->flag);
+// 		if(shell->flag == 0 && ft_strncmp(current->str,"|",2) == 0)
+// 		{
+// 			arg = ft_calloc(1,1);
+// 			while(current_bis != current)
+// 			{
+				// if(current_bis->str != NULL)
+				// {	
+				// 	arg = ft_strjoin(arg,current_bis->str);
+				// 	arg = ft_strjoin(arg," ");
+				// }
+// 				// printf("arg-->%s\n",arg);
+// 				current_bis = current_bis->next;
+// 			}
+// 			args = NULL;
+// 			add_node_to_lst(&args,create_node(ft_strdup(arg)));
+// 			current->sublist = args;
+// 			if(current->next)
+// 				current = current->next;
+// 		}
+// 		current = current->next;
+// 	}
+// 	free(arg);
+// }
+
 void args(t_lex *simple_command,t_mini *shell)
 {
 	t_lex *current;
-	t_lex *current_bis;
-	t_lex *args;
-	char *arg;
+	// t_lex *current_bis;
+	t_lex *newlist;
+	char *str;
 
+	newlist = NULL;
 	current = simple_command;
-	current_bis = simple_command;
-	args = NULL;
+	str = calloc(1,1);
 	while(current)
 	{
 		shell->flag = check_flag_bis(current,shell->flag);
+		if(current->str != NULL)
+		{	
+			if(shell->flag == 0 && ft_strncmp(current->str,"|",2) == 0)
+			{	
+				printf("%s\n",current->str);
+				break;
+			}
+			str = ft_strjoin(str,current->str);
+			str = ft_strjoin(str," ");
+		}
+		printf("str --> %s\n",str);
 		if(shell->flag == 0 && ft_strncmp(current->str,"|",2) == 0)
 		{
-			arg = ft_calloc(1,1);
-			while(current_bis != current)
-			{
-				if(current_bis->str != NULL)
-				{	
-					arg = ft_strjoin(arg,current_bis->str);
-					arg = ft_strjoin(arg," ");
-				}
-				printf("arg-->%s\n",arg);
-				current_bis = current_bis->next;
-			}
-			printf("allo\n");
-			args = NULL;
-			add_node_to_lst(&args,create_node(ft_strdup(arg)));
-			current->sublist = args;
-			if(current->next)
-				current = current->next;
+			newlist = NULL;
+			add_node_to_lst(&newlist,create_node(ft_strdup(str)));
+			current->sublist = newlist;
+			str = ft_calloc(1,1);
 		}
 		current = current->next;
 	}
-	free(arg);
+	free(str);
 }
