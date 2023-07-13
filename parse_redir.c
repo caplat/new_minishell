@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:08:46 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/10 10:34:58 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/12 15:45:26 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ void	parse_redir(t_lex *simple_command, t_mini *shell)
 	t_lex	*current;
 	char	*str;
 
-	str = "";
+	str = NULL;
+	str = ft_strjoin(str,"");
 	current = simple_command;
 	while (current)
 	{
-		if (ft_strncmp(current->str, ">", 2) == 0 |
-			ft_strncmp(current->str,"<", 2) == 0 | 
-			ft_strncmp(current->str, ">>",3) == 0 |
-			ft_strncmp(current->str, "<<", 3) == 0)
+		if (ft_strncmp(current->str, ">", 2) == 0 |ft_strncmp(current->str,"<", 2) == 0 | ft_strncmp(current->str, ">>",3) == 0 |ft_strncmp(current->str, "<<", 3) == 0)
 		{
 			str = "";
 			str = ft_strjoin(str, current->str);

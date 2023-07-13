@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: derblang <derblang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:46:34 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/10 14:28:51 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/11 17:51:38 by derblang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void env_cpy(t_mini *shell)
 	int i;
 
 	i = 0;
-	shell->env_cpy = malloc(sizeof(char *) * find_length(shell->env));
+	shell->env_cpy = malloc(sizeof(char *) * (find_length(shell->env) + 1));
 	while(shell->env[i])
 	{
 		shell->env_cpy[i] = ft_strdup(shell->env[i]);

@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:08:58 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/10 17:23:35 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/13 14:52:38 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void				maj_to_min(char *str);
 char				*add_char(char *str, char c);
 int					find_length(char **str);
 void				print_tab(char **tab);
+void				free_tab(char **tab, int length);
 
 //Signal
 
@@ -157,15 +158,24 @@ void				env_cpy(t_mini *shell);
 void				sort_tab(char **tab);
 void				swap_strings(char **str1, char **str2);
 int					compare_length(char *str1, char *str2);
-void				do_export(t_mini *shell);
+char				**do_export(t_mini *shell);
 void				declare_x(char **env_cpy);
 void				insert_char(char *str, char character, int position);
 void				add_quotes(char **env_cpy);
 int					find_character(char *str, char c);
+void				export(t_mini *shell);
+
+//Unset
+void unset(t_mini *shell);
 
 //Add_var_export
 
-
+void				add_var_export(char *str, t_mini *shell);
+void				add_var_env(char *str, t_mini *shell);
+int					check_dup(char **tab, char *compare);
+int					check_dup_env(char **tab, char *compare);
+void				add_str_to_tab(char ***tab, char *str);
+void				remove_str_from_tab(char ***tab, int position);
 
 //Pipe
 

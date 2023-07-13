@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:04:20 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/10 17:15:49 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/13 15:17:06 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void sort_tab(char **tab)
 	length = find_length(tab);
 	i = 0;
 	j = 0;
-	while(j < length - 1)
+	while(j < length - 1 && tab[i] && tab[i + 1])
 	{
 		while(tab[i])
 		{
@@ -71,10 +71,9 @@ void declare_x(char **env_cpy)
 	}
 
 }
-
 void insert_char(char *str, char character, int position) 
 {
-    int length = strlen(str);
+	int length = strlen(str);
     
     ft_memmove(str + position + 1, str + position, length - position + 1);
     str[position] = character;
@@ -108,13 +107,39 @@ void add_quotes(char **env_cpy)
 	}
 }
 
-void do_export(t_mini *shell)
+char **do_export(t_mini *shell)
 {
 	env_cpy(shell);
-	print_tab(shell->env_cpy);
-	printf("\n\n");
 	sort_tab(shell->env_cpy);
 	declare_x(shell->env_cpy);
 	add_quotes(shell->env_cpy);
-	print_tab(shell->env_cpy);
+	return(shell->env_cpy);
+}
+void export(t_mini *shell)
+{
+	char **tab;
+	int length;
+	int i;
+
+	i = 1;
+	while(shell->args)
+	{
+		tab = ft_split(shell->args->str,' ');
+		length = find_length(tab);
+		if(ft_strncmp(tab[0],"export",7) == 0 && length == 1)
+			print_tab(shell->env_cpy);
+		else if(ft_strncmp(tab[0],"export",7) == 0 && length > 1)
+		{
+			while(tab[i])
+			{
+				add_var_export(tab[i],shell);
+				add_var_env(tab[i],shell);
+				i++;
+			}
+		}
+		tab = NULL;
+		shell->args = shell->args->next;
+	}
+	free(tab);
+	// print_tab(shell->env);
 }

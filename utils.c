@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:48:36 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/10 14:17:42 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/13 15:17:06 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,13 @@ void print_tab(char **tab)
 	i = 0;
 	while(tab[i])
 		printf("%s\n",tab[i++]);
+}
+void free_tab(char **tab,int length)
+{
+	int i;
+
+	i = -1;
+	while(++i < length)
+		free((tab)[i]);
+	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:34:50 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/10 14:44:18 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/13 15:17:06 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	main(int argc, char **argv, char **env)
 	}
 	shell = malloc(sizeof(t_mini));
 	initialize(env, shell);
+	shell->env_cpy = do_export(shell);
 	// rl_catch_signals = 0;
 	do_signal();
-	do_export(shell);
-	// minishell_loop(shell);
+	minishell_loop(shell);
 }
 void	minishell_loop(t_mini *shell)
 {
@@ -54,8 +54,11 @@ void	minishell_loop(t_mini *shell)
 					printlist_bis(simple_command);
 					printf("\nshell->redir :\n");
 					printlist_bis(shell->redir);
+					printf("\n\n");
 					shell->args = set_command(simple_command,shell);
-					do_the_pipe(shell);
+					unset(shell);
+					// export(shell);
+					// do_the_pipe(shell);
 					// tokenize(simple_command,shell);
 					// args(simple_command,shell);
 					// display_sublist(simple_command);

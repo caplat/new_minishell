@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 13:45:00 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/06 17:00:14 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/12 16:20:59 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int verify(t_mini *shell,int j)
 
 	i = 0;
 	current = find_node(j,shell);
-	maj_to_min(current->str);
-	check_built_in(current,shell);
+	// maj_to_min(current->str);
+	// check_built_in(current,shell);
 	shell->arg_bis = ft_split(current->str,' ');
 	// printf("%d\n",j);
 	while(shell->allpath[i++])
