@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: derblang <derblang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:04:20 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/13 15:17:06 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/17 12:05:49 by derblang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,29 +117,31 @@ char **do_export(t_mini *shell)
 }
 void export(t_mini *shell)
 {
-	char **tab;
 	int length;
+	t_lex *current;
 	int i;
 
+	current = shell->args;
 	i = 1;
-	while(shell->args)
+	while(current)
 	{
-		tab = ft_split(shell->args->str,' ');
-		length = find_length(tab);
-		if(ft_strncmp(tab[0],"export",7) == 0 && length == 1)
+		shell->tab = ft_split(current->str,' ');
+		length = find_length(shell->tab);
+		if(ft_strncmp(shell->tab[0],"export",7) == 0 && length == 1)
 			print_tab(shell->env_cpy);
-		else if(ft_strncmp(tab[0],"export",7) == 0 && length > 1)
+		else if(ft_strncmp(shell->tab[0],"export",7) == 0 && length > 1)
 		{
-			while(tab[i])
+			while(shell->tab[i])
 			{
-				add_var_export(tab[i],shell);
-				add_var_env(tab[i],shell);
+				add_var_export(shell->tab[i],shell);
+				add_var_env(shell->tab[i],shell);
 				i++;
 			}
 		}
-		tab = NULL;
-		shell->args = shell->args->next;
+		shell->tab = NULL;
+		current = current->next;
 	}
-	free(tab);
+	// free(tab);
+	// printf("\n\n");
 	// print_tab(shell->env);
 }

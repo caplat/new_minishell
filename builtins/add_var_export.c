@@ -69,7 +69,7 @@ void add_str_to_tab(char ***tab,char *str)
 	// {
 	// 	free((*tab)[i]);
 	// }
-	free(*tab);
+	// free(*tab); //invalid free
 	*tab = newtab;
 }
 
@@ -98,7 +98,7 @@ void remove_str_from_tab(char ***tab,int position)
 		}	
 	}
 	newtab[j] = NULL;
-	free_tab(*tab,length);
+	// free_tab(*tab,length);
 	// free(*tab);
 	*tab = newtab;
 }
@@ -143,12 +143,16 @@ void add_var_env(char *str,t_mini *shell)
 {
 	int res;
 
-	res = check_dup_env(shell->env,str);
-	if(res == -2)
-		return;
-	if(res != -1)
-	{	
-		remove_str_from_tab(&shell->env,res);
+	if(find_character(str,'=') != -1)
+	{
+		res = check_dup_env(shell->env,str);
+		printf("dup env --> %d\n",res);
+		if(res == -2)
+			return;
+		if(res != -1)
+		{	
+			remove_str_from_tab(&shell->env,res);
+		}
+		add_str_to_tab(&shell->env,str);
 	}
-	add_str_to_tab(&shell->env,str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: derblang <derblang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:08:58 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/13 14:52:38 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/17 16:45:00 by derblang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ typedef struct s_mini
 	char			**arg_bis;
 	t_lex			*args;
 	t_lex			*redir;
+	char			**tab;
+	int				stdout_cpy;
+	int				stdin_cpy;
 }					t_mini;
 
 typedef struct s_compteur
@@ -76,6 +79,7 @@ char				*add_char(char *str, char c);
 int					find_length(char **str);
 void				print_tab(char **tab);
 void				free_tab(char **tab, int length);
+void free_arr(char **arr);
 
 //Signal
 
@@ -141,7 +145,9 @@ void				echo_bis(char **compare, int i, int k, int flag_bis);
 
 //Cd
 
-void				change_directory(char *dir);
+void				cd(t_mini *shell);
+void				change_directory(char *dir, t_mini *shell);
+void				change_env(char *cwd, t_mini *shell);
 
 //Pwd
 
@@ -150,6 +156,7 @@ void				too_much_line(char **dir, char **path, char **cwd);
 
 //Env
 
+void				exec_env(t_mini *shell);
 void				print_env(t_mini *shell);
 void				env_cpy(t_mini *shell);
 
@@ -166,7 +173,7 @@ int					find_character(char *str, char c);
 void				export(t_mini *shell);
 
 //Unset
-void unset(t_mini *shell);
+void				unset(t_mini *shell);
 
 //Add_var_export
 
@@ -176,6 +183,10 @@ int					check_dup(char **tab, char *compare);
 int					check_dup_env(char **tab, char *compare);
 void				add_str_to_tab(char ***tab, char *str);
 void				remove_str_from_tab(char ***tab, int position);
+
+//Exit
+
+void				ft_exit(t_mini *shell);
 
 //Pipe
 
@@ -192,6 +203,9 @@ int					execute(t_mini *shell);
 
 //Parse_redir
 
-void				parse_redir(t_lex *simple_command, t_mini *shell);
+void				parse_redir(t_lex **simple_command, t_mini *shell);
+void redir_input(char *file, t_mini *shell);
+void redir_output(char *file, t_mini *shell);
+void check_redir(t_mini *shell);
 
 #endif

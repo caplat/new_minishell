@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: derblang <derblang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:48:36 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/13 15:17:06 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/17 16:45:01 by derblang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void initialize(char **env,t_mini *shell)
 	shell->exe = NULL;
 	shell->arg_bis = NULL;
 	shell->redir = NULL;
+	shell->tab = NULL;
+	shell->stdin_cpy = dup(STDIN_FILENO);
+	shell->stdout_cpy = dup(STDOUT_FILENO);
 }
 void maj_to_min(char *str)
 {
@@ -85,4 +88,19 @@ void free_tab(char **tab,int length)
 	while(++i < length)
 		free((tab)[i]);
 	free(tab);
+}
+
+void free_arr(char **arr)
+{
+	size_t i;
+	
+	i = 0;
+	while(arr[i])
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
 }

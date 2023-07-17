@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:34:50 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/13 15:17:06 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/17 17:17:29 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,19 @@ void	minishell_loop(t_mini *shell)
 					separate_command(lst,shell);
 					shell->newline = convert_to_str(lst);
 					simple_command = get_my_element(shell);
-					parse_redir(simple_command,shell);
+					parse_redir(&simple_command,shell);
 					printf("\nsimple_command :\n");
 					printlist_bis(simple_command);
 					printf("\nshell->redir :\n");
 					printlist_bis(shell->redir);
 					printf("\n\n");
 					shell->args = set_command(simple_command,shell);
+					export(shell);
 					unset(shell);
-					// export(shell);
-					// do_the_pipe(shell);
+					cd(shell);
+					exec_env(shell);
+					check_redir(shell);
+					do_the_pipe(shell);
 					// tokenize(simple_command,shell);
 					// args(simple_command,shell);
 					// display_sublist(simple_command);
