@@ -6,7 +6,7 @@
 /*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:34:50 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/17 17:17:29 by acaplat          ###   ########.fr       */
+/*   Updated: 2023/07/19 16:46:17 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	minishell_loop(t_mini *shell)
 					separate_command(lst,shell);
 					shell->newline = convert_to_str(lst);
 					simple_command = get_my_element(shell);
+					here_doc(simple_command);
 					parse_redir(&simple_command,shell);
 					printf("\nsimple_command :\n");
 					printlist_bis(simple_command);
@@ -70,6 +71,8 @@ void	minishell_loop(t_mini *shell)
 				}
 				free(shell->line);
 				shell->add_char = ft_calloc(1,2);
+				dup2(shell->stdout_cpy,STDOUT_FILENO);
+				dup2(shell->stdin_cpy,STDIN_FILENO);
 			}
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: derblang <derblang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acaplat <acaplat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:08:58 by acaplat           #+#    #+#             */
-/*   Updated: 2023/07/17 16:45:00 by derblang         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:10:51 by acaplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char				*add_char(char *str, char c);
 int					find_length(char **str);
 void				print_tab(char **tab);
 void				free_tab(char **tab, int length);
-void free_arr(char **arr);
+void				free_arr(char **arr);
 
 //Signal
 
@@ -204,8 +204,17 @@ int					execute(t_mini *shell);
 //Parse_redir
 
 void				parse_redir(t_lex **simple_command, t_mini *shell);
-void redir_input(char *file, t_mini *shell);
-void redir_output(char *file, t_mini *shell);
-void check_redir(t_mini *shell);
+
+//Redirection
+
+void				redir_input(char *file, t_mini *shell);
+void				redir_output(char *file, t_mini *shell);
+void				check_redir(t_mini *shell);
+
+//here_doc
+
+void				here_doc(t_lex *simple_command);
+void				too_much(int fd, char *del);
+void				too_much_bis(int fd);
 
 #endif
